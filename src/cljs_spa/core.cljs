@@ -1,5 +1,6 @@
 (ns cljs-spa.core
   (:require [reagent.core :as r]
+            [cljs-spa.util :as util]
             [clojure.string :as str]
             [clojure.pprint :refer [pprint]]
             [accountant.core :as accountant]
@@ -36,27 +37,13 @@
 (defn inspector-ui []
   [:pre [:code (with-out-str (pprint @!state))]])
 
-(defn check-fetch [r]
-  (if-not (.-ok r)
-    (throw (ex-info "Could not get user" {:status (.-status r)
-                                          :load-error true}))
-    r))
 
-(defn safe-fetch [& args]
-  (-> (.apply js/fetch js/window (into-array args))
-      (.catch (fn [e]
-                (throw (ex-info "Generic error while fetching" {:cause e
-                                                                :load-error true}))))
-      (.then check-fetch)))
 
 ;; ---
 
 (def my-routes ["/" {"" :home
                      "users" :users
                      "users/" {[:id] :user}}])
-
-(defn path-for [& args]
-  (str "#" (apply bidi/path-for my-routes args)))
 
 (defonce !router
   (delay (let [opts {:nav-handler
@@ -74,7 +61,7 @@
 ;; ---
 
 (defn get-users []
-  (-> (safe-fetch "https://reqres.in/api/users?page=1")
+  (-> (util/safe-fetch "https://reqres.in/api/users?page=1")
       (.then (fn [r] (.json r)))
       (.then (fn [js-data]
                (swap! !state assoc :users-data (js->clj js-data :keywordize-keys true))))))
@@ -92,7 +79,7 @@
 ;; ---
 
 (defn get-user [{:keys [id]}]
-  (-> (safe-fetch (str "https://reqres.in/api/users/" id "?page=1"))
+  (-> (util/safe-fetch (str "https://reqres.in/api/users/" id "?page=1"))
       (.then (fn [r] (.json r)))
       (.then (fn [js-data]
                (swap! !state assoc :user-data (js->clj js-data :keywordize-keys true))))))
