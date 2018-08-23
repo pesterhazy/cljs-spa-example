@@ -81,16 +81,29 @@
 
 ;; ---
 
+(defn home-ui []
+  [:div "Home"])
+
+;; ---
+
 (defn not-found-ui []
   [:div "Not Found"])
+
+;; ---
 
 
 (defn main []
   [:div
+   [:nav
+    [:a {:href "#/"} "Home"]
+    [:span " "]
+    [:a {:href "#/users"} "Users"]]
    [:main
     [:article
      (let [{:keys [handler route-params]} (-> @!state :route)]
        (case handler
+         :home
+         [home-ui]
          :users
          [users-ui]
          :user
