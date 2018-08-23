@@ -1,0 +1,3 @@
+{:open-url false
+ :watch-dirs ["src"]
+ :ring-server-options {:port 9333}}
