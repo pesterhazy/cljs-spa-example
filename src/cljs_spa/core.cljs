@@ -12,7 +12,9 @@
 
 (defn go-to [route]
   (js/console.warn "go-to" route)
-  (swap! !state assoc :route route)
+  (swap! !state (fn [state] (-> state
+                                (assoc :route route)
+                                (assoc :page-state :loading))))
   (let [{:keys [handler route-params]} route]
     (case handler
       :users
@@ -54,17 +56,22 @@
   (-> (js/fetch "https://reqres.in/api/users?page=1")
       (.then #(.json %))
       (.then (fn [js-data]
-               (swap! !state assoc :users-data (js->clj js-data :keywordize-keys true))))))
+               (swap! !state (fn [state] (-> state
+                                             (assoc :users-data (js->clj js-data :keywordize-keys true))
+                                             (assoc :page-state :loaded))))))))
 
 (defn users-ui []
-  [:div
-   [:h3 "Users"]
-   (when-let [users-data (:users-data @!state)]
-     (->> users-data
-          :data
-          (map (fn [user]
-                 [:li [:a {:href (str "#/users/" (:id user))} (:first_name user)]]))
-          (into [:ul])))])
+  (if (not= :loaded (:page-state @!state))
+    [:div
+     "Loading..."]
+    [:div
+     [:h3 "Users"]
+     (when-let [users-data (:users-data @!state)]
+       (->> users-data
+            :data
+            (map (fn [user]
+                   [:li [:a {:href (str "#/users/" (:id user))} (:first_name user)]]))
+            (into [:ul])))]))
 
 ;; ---
 
@@ -72,7 +79,9 @@
   (-> (js/fetch (str "https://reqres.in/api/users/" id "?page=1"))
       (.then #(.json %))
       (.then (fn [js-data]
-               (swap! !state assoc :user-data (js->clj js-data :keywordize-keys true))))))
+               (swap! !state (fn [state] (-> state
+                                             (assoc :user-data (js->clj js-data :keywordize-keys true))
+                                             (assoc :page-state :loaded))))))))
 
 (defn user-ui [route-params]
   [:div
@@ -103,15 +112,17 @@
     [:a {:href "#/users"} "Users"]]
    [:main
     [:article
-     (let [{:keys [handler route-params]} (-> @!state :route)]
-       (case handler
-         :home
-         [home-ui]
-         :users
-         [users-ui]
-         :user
-         [user-ui route-params]
-         [not-found-ui]))]]
+     (if (not= :loaded (:page-state @!state))
+       [:div "loading..."]
+       (let [{:keys [handler route-params]} (-> @!state :route)]
+         (case handler
+           :home
+           [home-ui]
+           :users
+           [users-ui]
+           :user
+           [user-ui route-params]
+           [not-found-ui])))]]
    [:footer
     [inspector-ui]]])
 
