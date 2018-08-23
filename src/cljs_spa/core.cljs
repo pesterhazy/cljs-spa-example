@@ -35,15 +35,18 @@
 (defn path-for [& args]
   (str "#" (apply bidi/path-for my-routes args)))
 
+(defonce !router
+  (delay (let [opts {:nav-handler
+                     (fn [path]
+                       (go-to (bidi/match-route my-routes
+                                                (-> path (str/split #"#" 2) last))))
+                     :path-exists?
+                     (fn [path]
+                       (boolean (bidi/match-route my-routes path)))}]
+           (accountant/configure-navigation! opts))))
+
 (defn setup-router []
-  (let [opts {:nav-handler
-              (fn [path]
-                (go-to (bidi/match-route my-routes
-                                         (-> path (str/split #"#" 2) last))))
-              :path-exists?
-              (fn [path]
-                (boolean (bidi/match-route my-routes path)))}]
-    (accountant/configure-navigation! opts)))
+  (deref !router))
 
 ;; ---
 
