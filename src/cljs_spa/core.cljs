@@ -28,7 +28,7 @@
         (.catch (fn [e]
                   (when (-> e ex-data :load-error)
                     (swap! !state assoc :page-state :failed))
-                  (js/console.error "Caught:" e))))))
+                  (throw e))))))
 
 ;; --- helpers ---
 
