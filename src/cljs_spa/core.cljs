@@ -11,8 +11,7 @@
 (declare get-user)
 
 (defn default-action []
-  (js/Promise. (fn [resolve]
-                 (resolve (swap! !state assoc :page-state :loaded)))))
+  (js/Promise.resolve))
 
 (defn go-to [route]
   (swap! !state (fn [state] (-> state
@@ -28,7 +27,9 @@
         (.catch (fn [e]
                   (when (-> e ex-data :load-error)
                     (swap! !state assoc :page-state :failed))
-                  (throw e))))))
+                  (throw e)))
+        (.then (fn []
+                 (swap! !state assoc :page-state :loaded))))))
 
 ;; --- helpers ---
 
@@ -76,9 +77,7 @@
   (-> (safe-fetch "https://reqres.in/api/users?page=1")
       (.then (fn [r] (.json r)))
       (.then (fn [js-data]
-               (swap! !state (fn [state] (-> state
-                                             (assoc :users-data (js->clj js-data :keywordize-keys true))
-                                             (assoc :page-state :loaded))))))))
+               (swap! !state assoc :users-data (js->clj js-data :keywordize-keys true))))))
 
 (defn users-ui []
   [:div
@@ -96,9 +95,7 @@
   (-> (safe-fetch (str "https://reqres.in/api/users/" id "?page=1"))
       (.then (fn [r] (.json r)))
       (.then (fn [js-data]
-               (swap! !state (fn [state] (-> state
-                                             (assoc :user-data (js->clj js-data :keywordize-keys true))
-                                             (assoc :page-state :loaded))))))))
+               (swap! !state assoc :user-data (js->clj js-data :keywordize-keys true))))))
 
 (defn user-ui [route-params]
   [:div
@@ -128,17 +125,17 @@
     [:span " "]
     [:a {:href "#/users"} "Users"]
     [:span " "]
-    [:a {:href "#/users/1"} "User 1"]
+    [:a {:href "#/users/1"} "User #1"]
     [:span " "]
-    [:a {:href "#/users/999"} "Non-existant user"]
-    ]
+    [:a {:href "#/users/999"} "Invalid user"]]
    [:main
     [:article
      (case (:page-state @!state)
        :loading
        [:div.loading]
        :failed
-       [:div "Failed"]
+       [:div ":-("]
+       :loaded
        (let [{:keys [handler route-params]} (-> @!state :route)]
          (case handler
            :home
@@ -147,7 +144,9 @@
            [users-ui]
            :user
            [user-ui route-params]
-           [not-found-ui])))]]
+           [not-found-ui]))
+       nil
+       [:div])]]
    [:footer
     #_[inspector-ui]]])
 
