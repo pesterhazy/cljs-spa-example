@@ -1,7 +1,7 @@
 (ns cljs-spa.core
   (:require [reagent.core :as r]
-            [bidi.router]
-            [bidi.bidi]))
+            [accountant.core :as accountant]
+            [bidi.bidi :as bidi]))
 
 (defonce !state (r/atom nil))
 
@@ -18,10 +18,9 @@
   (str "#" (apply bidi.bidi/path-for my-routes args)))
 
 (defn setup-router []
-  (bidi.router/start-router! my-routes
-                             {:on-navigate (fn [route]
-                                             (go-to route))
-                              :default-location {:handler :hello}}))
+  (js/console.log "setup-router")
+  (accountant/configure-navigation! {:nav-handler (fn [path] (js/console.warn "nav-handler" path))
+                                     :path-exists? (fn [path] (boolean (bidi/match-route my-routes path)))}))
 ;; ---
 
 (defn inspector []
@@ -38,6 +37,7 @@
 
 (defn init []
   (setup-router)
-  (render))
+  (render)
+  (accountant/dispatch-current!))
 
 (init)
