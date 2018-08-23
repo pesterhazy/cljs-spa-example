@@ -1,26 +1,28 @@
 (ns cljs-spa.core
   (:require [reagent.core :as r]
-            [secretary.core :as secretary :refer-macros [defroute]]
-            [goog.events :as events]
-            [goog.history.EventType :as EventType])
-  (:import goog.History))
+            [bidi.router]
+            [bidi.bidi]))
 
 (defonce !state (r/atom nil))
 
 (defn go-to [ky]
+  (js/console.warn "go-to" ky)
   (swap! !state assoc :ky ky))
 
-(secretary/set-config! :prefix "#")
+;; ---
 
-(defroute home-path "/" []
-  (go-to :home))
+(def my-routes ["/" {"" :home
+                     "asdf" :asdf}])
 
-;; /#/users
-(defroute users-path "/users" []
-  (go-to :users))
+(defn path-for [& args]
+  (str "#" (apply bidi.bidi/path-for my-routes args)))
 
-(defroute "*" []
-  (go-to :notfound))
+(defn setup-router []
+  (bidi.router/start-router! my-routes
+                             {:on-navigate (fn [route]
+                                             (go-to route))
+                              :default-location {:handler :hello}}))
+;; ---
 
 (defn inspector []
   [:pre [:code (pr-str @!state)]])
@@ -34,12 +36,8 @@
 (defn render []
   (r/render [main] (.getElementById js/document "app")))
 
-(def !history (delay (let [h (History.)]
-                       (goog.events/listen h EventType/NAVIGATE #(secretary/dispatch! (.-token %)))
-                       (doto h (.setEnabled true)))))
-
 (defn init []
-  (deref !history)
+  (setup-router)
   (render))
 
 (init)
