@@ -21,7 +21,7 @@
       (get-users)
       :user
       (get-user route-params)
-      nil)))
+      (swap! !state assoc :page-state :loaded))))
 
 ;; ---
 
@@ -61,17 +61,14 @@
                                              (assoc :page-state :loaded))))))))
 
 (defn users-ui []
-  (if (not= :loaded (:page-state @!state))
-    [:div
-     "Loading..."]
-    [:div
-     [:h3 "Users"]
-     (when-let [users-data (:users-data @!state)]
-       (->> users-data
-            :data
-            (map (fn [user]
-                   [:li [:a {:href (str "#/users/" (:id user))} (:first_name user)]]))
-            (into [:ul])))]))
+  [:div
+   [:h3 "Users"]
+   (when-let [users-data (:users-data @!state)]
+     (->> users-data
+          :data
+          (map (fn [user]
+                 [:li [:a {:href (str "#/users/" (:id user))} (:first_name user)]]))
+          (into [:ul])))])
 
 ;; ---
 
@@ -113,7 +110,7 @@
    [:main
     [:article
      (if (not= :loaded (:page-state @!state))
-       [:div "loading..."]
+       [:div.loading]
        (let [{:keys [handler route-params]} (-> @!state :route)]
          (case handler
            :home
@@ -124,7 +121,7 @@
            [user-ui route-params]
            [not-found-ui])))]]
    [:footer
-    [inspector-ui]]])
+    #_[inspector-ui]]])
 
 (defn render []
   (r/render [main] (.getElementById js/document "app")))
