@@ -15,7 +15,6 @@
                  (resolve (swap! !state assoc :page-state :loaded)))))
 
 (defn go-to [route]
-  (js/console.warn "go-to" route)
   (swap! !state (fn [state] (-> state
                                 (assoc :route route)
                                 (assoc :page-state :loading))))
@@ -31,10 +30,23 @@
                     (swap! !state assoc :page-state :failed))
                   (js/console.error "Caught:" e))))))
 
-;; ---
+;; --- helpers ---
 
 (defn inspector-ui []
   [:pre [:code (with-out-str (pprint @!state))]])
+
+(defn check-fetch [r]
+  (if-not (.-ok r)
+    (throw (ex-info "Could not get user" {:status (.-status r)
+                                          :load-error true}))
+    r))
+
+(defn safe-fetch [& args]
+  (-> (.apply js/fetch js/window (into-array args))
+      (.catch (fn [e]
+                (throw (ex-info "Generic error while fetching" {:cause e
+                                                                :load-error true}))))
+      (.then check-fetch)))
 
 ;; ---
 
@@ -61,7 +73,7 @@
 ;; ---
 
 (defn get-users []
-  (-> (js/fetch "https://reqres.in/api/users?page=1")
+  (-> (safe-fetch "https://reqres.in/api/users?page=1")
       (.then (fn [r] (.json r)))
       (.then (fn [js-data]
                (swap! !state (fn [state] (-> state
@@ -81,11 +93,7 @@
 ;; ---
 
 (defn get-user [{:keys [id]}]
-  (-> (js/fetch (str "https://reqres.in/api/users/" id "?page=1"))
-      (.then (fn [r] (if-not (.-ok r)
-                       (throw (ex-info "Could not get user" {:state (.-status r)
-                                                             :load-error true}))
-                       r)))
+  (-> (safe-fetch (str "https://reqres.in/api/users/" id "?page=1"))
       (.then (fn [r] (.json r)))
       (.then (fn [js-data]
                (swap! !state (fn [state] (-> state
