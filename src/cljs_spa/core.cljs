@@ -10,18 +10,26 @@
 (declare get-users)
 (declare get-user)
 
+(defn default-action []
+  (js/Promise. (fn [resolve]
+                 (resolve (swap! !state assoc :page-state :loaded)))))
+
 (defn go-to [route]
   (js/console.warn "go-to" route)
   (swap! !state (fn [state] (-> state
                                 (assoc :route route)
                                 (assoc :page-state :loading))))
   (let [{:keys [handler route-params]} route]
-    (case handler
-      :users
-      (get-users)
-      :user
-      (get-user route-params)
-      (swap! !state assoc :page-state :loaded))))
+    (-> (case handler
+          :users
+          (get-users)
+          :user
+          (get-user route-params)
+          (default-action))
+        (.catch (fn [e]
+                  (when (-> e ex-data :load-error)
+                    (swap! !state assoc :page-state :failed))
+                  (js/console.error "Caught:" e))))))
 
 ;; ---
 
@@ -54,7 +62,7 @@
 
 (defn get-users []
   (-> (js/fetch "https://reqres.in/api/users?page=1")
-      (.then #(.json %))
+      (.then (fn [r] (.json r)))
       (.then (fn [js-data]
                (swap! !state (fn [state] (-> state
                                              (assoc :users-data (js->clj js-data :keywordize-keys true))
@@ -74,7 +82,11 @@
 
 (defn get-user [{:keys [id]}]
   (-> (js/fetch (str "https://reqres.in/api/users/" id "?page=1"))
-      (.then #(.json %))
+      (.then (fn [r] (if-not (.-ok r)
+                       (throw (ex-info "Could not get user" {:state (.-status r)
+                                                             :load-error true}))
+                       r)))
+      (.then (fn [r] (.json r)))
       (.then (fn [js-data]
                (swap! !state (fn [state] (-> state
                                              (assoc :user-data (js->clj js-data :keywordize-keys true))
@@ -106,11 +118,19 @@
    [:nav
     [:a {:href "#/"} "Home"]
     [:span " "]
-    [:a {:href "#/users"} "Users"]]
+    [:a {:href "#/users"} "Users"]
+    [:span " "]
+    [:a {:href "#/users/1"} "User 1"]
+    [:span " "]
+    [:a {:href "#/users/999"} "Non-existant user"]
+    ]
    [:main
     [:article
-     (if (not= :loaded (:page-state @!state))
+     (case (:page-state @!state)
+       :loading
        [:div.loading]
+       :failed
+       [:div "Failed"]
        (let [{:keys [handler route-params]} (-> @!state :route)]
          (case handler
            :home
