@@ -14,7 +14,7 @@
 (defn default-action []
   (js/Promise.resolve))
 
-(defn go-to [route]
+(defn nav-handler [route]
   (swap! !state (fn [state] (-> state
                                 (assoc :route route)
                                 (assoc :page-state :loading))))
@@ -37,8 +37,6 @@
 (defn inspector-ui []
   [:pre [:code (with-out-str (pprint @!state))]])
 
-
-
 ;; ---
 
 (def my-routes ["/" {"" :home
@@ -46,14 +44,7 @@
                      "users/" {[:id] :user}}])
 
 (defonce !router
-  (delay (let [opts {:nav-handler
-                     (fn [path]
-                       (go-to (bidi/match-route my-routes
-                                                (-> path (str/split #"#" 2) last))))
-                     :path-exists?
-                     (fn [path]
-                       (boolean (bidi/match-route my-routes path)))}]
-           (accountant/configure-navigation! opts))))
+  (delay (util/create-routes my-routes nav-handler)))
 
 (defn setup-router []
   (deref !router))

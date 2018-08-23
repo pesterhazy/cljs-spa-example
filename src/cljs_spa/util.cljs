@@ -17,3 +17,13 @@
                 (throw (ex-info "Generic error while fetching" {:cause e
                                                                 :load-error true}))))
       (.then check-fetch)))
+
+(defn create-routes [routes nav-handler]
+  (let [opts {:nav-handler
+              (fn [path]
+                (nav-handler (bidi/match-route routes
+                                               (-> path (str/split #"#" 2) last))))
+              :path-exists?
+              (fn [path]
+                (boolean (bidi/match-route routes path)))}]
+    (accountant/configure-navigation! opts)))
