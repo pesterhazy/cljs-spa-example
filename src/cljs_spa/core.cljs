@@ -11,6 +11,7 @@
 
 (declare get-users)
 (declare get-user)
+(declare get-clock)
 
 (defn default-action []
   (js/Promise.resolve))
@@ -25,6 +26,8 @@
           (get-users)
           :user
           (get-user route-params)
+          :clock
+          (get-clock)
           (default-action))
         (.catch (fn [e]
                   (when (-> e ex-data :load-error)
@@ -45,7 +48,8 @@
 
 (def my-routes ["/" {"" :home
                      "users" :users
-                     "users/" {[:id] :user}}])
+                     "users/" {[:id] :user}
+                     "clock" :clock}])
 
 (defonce !router
   (delay (util/create-routes my-routes nav-handler)))
@@ -94,6 +98,19 @@
 
 ;; ---
 
+(defn get-clock []
+  (js/Promise. (fn [resolve]
+                 (swap! !state assoc :clock (js/setInterval (fn []
+                                                              (js/console.log "Tick")
+                                                              (swap! !state assoc :clock-time (js/Date.)))
+                                                            500))
+                 (resolve))))
+
+(defn clock-ui []
+  [:div (some-> @!state :clock-time .getSeconds)])
+
+;; ---
+
 (defn not-found-ui []
   [:div "Not Found"])
 
@@ -109,7 +126,10 @@
     [:span " "]
     [:a {:href "#/users/1"} "User #1"]
     [:span " "]
-    [:a {:href "#/users/999"} "Invalid user"]]
+    [:a {:href "#/users/999"} "Invalid user"]
+    [:span " "]
+    [:a {:href "#/clock"} "Clock"]
+    ]
    [:main
     [:article
      (case (:page-state @!state)
@@ -126,6 +146,8 @@
            [users-ui]
            :user
            [user-ui route-params]
+           :clock
+           [clock-ui]
            [not-found-ui]))
        nil
        [:div])]]
