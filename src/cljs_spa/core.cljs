@@ -4,7 +4,8 @@
             [clojure.string :as str]
             [clojure.pprint :refer [pprint]]
             [accountant.core :as accountant]
-            [bidi.bidi :as bidi]))
+            [bidi.bidi :as bidi]
+            [cljsjs.noty]))
 
 (defonce !state (r/atom nil))
 
@@ -30,7 +31,10 @@
                     (swap! !state assoc :page-state :failed))
                   (throw e)))
         (.then (fn []
-                 (swap! !state assoc :page-state :loaded))))))
+                 (swap! !state assoc :page-state :loaded)))
+        (.catch (fn [e]
+                  (-> (js/Noty. #js{:text (.-message e), :type "error", :timeout 1500})
+                      .show))))))
 
 ;; --- helpers ---
 

@@ -14,8 +14,8 @@
 (defn safe-fetch [& args]
   (-> (.apply js/fetch js/window (into-array args))
       (.catch (fn [e]
-                (throw (ex-info "Generic error while fetching" {:cause e
-                                                                :load-error true}))))
+                (throw (ex-info "Could not fetch" {:cause e
+                                                   :load-error true}))))
       (.then check-fetch)))
 
 (defn create-routes [routes nav-handler]
