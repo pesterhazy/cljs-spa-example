@@ -1,14 +1,3 @@
-{:main cljs-spa.core
- :optimizations :simple
+{:optimizations :simple
  :output-to "dist/compiled/app.js"
- :output-dir "target-prod"
- :foreign-libs [{:file "./doublebundle/dist/doublebundle.js",
-                 :provides ["react" "react-dom" "create-react-class" "react-dom/server"
-                            "react-select" "doublebundle.router5" "doublebundle.router5-browser-plugin"]
-                 :global-exports {react React
-                                  react-dom ReactDOM
-                                  create-react-class createReactClass
-                                  react-select react-select
-                                  react-dom/server ReactDOMServer
-                                  doublebundle.router5 router5
-                                  doublebundle.router5-browser-plugin router5-browser-plugin}}]}
+ :output-dir "target-prod"}
