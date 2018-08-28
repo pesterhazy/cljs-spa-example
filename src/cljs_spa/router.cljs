@@ -3,7 +3,7 @@
             [cljs-spa.state :refer [!state]]
             [reagent.core :as r]
             [router5 :as router5]
-            [router5browser-plugin :as router5-browser-plugin]))
+            ["router5/plugins/browser" :as router5-browser-plugin]))
 
 (defn handle-load-error [e]
   (when (-> e ex-data :load-error)
