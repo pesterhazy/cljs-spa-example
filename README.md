@@ -66,6 +66,10 @@ Then open http://localhost:9333/ in your browser
 
 - Rely on higher-order components like [layout-ui](https://github.com/pesterhazy/cljs-spa-example/blob/master/src/cljs_spa/layout.cljs#L36) and [router-ui](https://github.com/pesterhazy/cljs-spa-example/blob/master/src/cljs_spa/router.cljs#L47) to hide complexity and for better composability.
 
+## Additional features
+
+- The Home screen uses the excellent [react-select](https://github.com/JedWatson/react-select) component to demonstrate how to use Reagent components sourced from NPM. See [code](src/cljs_spa/page/home.cljs).
+
 ## Links
 
 This repository is inspired by Richard Feldman's [elm-spa-example](https://github.com/rtfeldman/elm-spa-example/).
