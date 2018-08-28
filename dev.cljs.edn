@@ -1,4 +1,4 @@
 {:main cljs-spa.core
  :foreign-libs [{:file "doublebundle/empty.js",
-                 :provides ["empty.empty"]
+                 :provides ["react" "react-dom" "create-react-class"]
                  :global-exports {create-react-class createReactClass}}]}
