@@ -12,7 +12,6 @@ scripts/dev
 # or to clean all build artifacts
 
 scripts/dev --reset
-
 ```
 
 to start a reloading figwheel server, then open http://localhost:9333/ in your browser.
