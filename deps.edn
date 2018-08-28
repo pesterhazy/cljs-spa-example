@@ -1,4 +1,5 @@
-{:aliases {:dev {:main-opts ["-m" "figwheel.main" "-b" "dev" "-r"]}},
+{:aliases {:dev {:main-opts ["-m" "figwheel.main" "-b" "dev" "-r"]}
+           :dev-pc {:main-opts ["-m" "figwheel.main" "-pc" "-b" "dev"]}},
  :deps {com.bhauman/figwheel-main #:mvn{:version "0.1.8"},
         com.bhauman/rebel-readline-cljs #:mvn{:version "0.1.4"},
         org.clojure/clojure #:mvn{:version "1.9.0"},

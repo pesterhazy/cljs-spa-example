@@ -1,4 +1,6 @@
 {:open-url false
  :watch-dirs ["src"]
  :css-dirs ["resources/public/css"]
- :ring-server-options {:port 9333}}
+ :ring-server-options {:port 9333}
+ :npm {:bundles {"doublebundle/dist/doublebundle.js" "doublebundle/library.js"}}
+ }
