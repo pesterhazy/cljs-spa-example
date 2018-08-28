@@ -1,5 +1,8 @@
 {:aliases {:dev {:main-opts ["-m" "figwheel.main" "-b" "dev" "-r"]}
-           :prod {:main-opts ["-m" "figwheel.main" "-d" "dist" "-bo" "prod"]}}
+           :prod {:main-opts ["-m" "figwheel.main"
+                              "-co" "prod.cljs.edn"
+                              "-o" "dist/bundle.js"
+                              "-c" "cljs-spa.core"]}}
  :deps {com.bhauman/figwheel-main #:mvn{:version "0.1.8"},
         com.bhauman/rebel-readline-cljs #:mvn{:version "0.1.4"},
         org.clojure/clojure #:mvn{:version "1.9.0"},
