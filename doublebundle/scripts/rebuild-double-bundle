@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -euo pipefail && cd "$(dirname "${BASH_SOURCE[0]}")/.."
+
+# Only rebuild double bundle if necessary
+
+target=dist/doublebundle.js
+hashfile=.doublebundle.hash
+
+h1="$(python -c 'import hashlib,sys; sys.stdout.write(hashlib.md5(open(sys.argv[1]).read().encode("utf-8")).hexdigest())' library.js)"
+h2="$(python -c 'import hashlib,sys; sys.stdout.write(hashlib.md5(open(sys.argv[1]).read().encode("utf-8")).hexdigest())' package.json)"
+
+expected="$(cat "$hashfile" 2>/dev/null || true)"
+
+if ! [[ -f "$target" ]] \
+    || [[ "$h1$h2" != "$expected" ]] ; then
+    yarn
+    printf "%s%s" "$h1" "$h2" > "$hashfile"
+else
+    printf "Already up to date: %s\n" "$target"
+fi
