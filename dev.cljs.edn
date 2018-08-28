@@ -1,10 +1,4 @@
 {:main cljs-spa.core
- :foreign-libs [{:file "./doublebundle/dist/doublebundle.js",
-                 :provides ["react" "react-dom" "create-react-class" "react-dom/server"
-                            "doublebundle.router5" "doublebundle.router5-browser-plugin"]
-                 :global-exports {react React
-                                  react-dom ReactDOM
-                                  create-react-class createReactClass
-                                  react-dom/server ReactDOMServer
-                                  doublebundle.router5 router5
-                                  doublebundle.router5-browser-plugin router5-browser-plugin}}]}
+ :foreign-libs [{:file "doublebundle/empty.js",
+                 :provides ["empty.empty"]
+                 :global-exports {create-react-class createReactClass}}]}
