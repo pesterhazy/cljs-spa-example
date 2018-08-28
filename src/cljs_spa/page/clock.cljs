@@ -4,7 +4,7 @@
 
 (defn tick []
   (js/console.log "Tick")
-  (swap! !state assoc :clock-time (js/Date.)))
+  (swap! !state assoc :clock-time (int (/ (.valueOf (js/Date.)) 1000))))
 
 (defn activate []
   (tick)
@@ -17,7 +17,7 @@
 (defn page-ui []
   [:div
    [:h3 "Clock"]
-   [:div "Seconds since epoch: " (some-> @!state :clock-time int)]
+   [:div "Seconds since epoch: " (-> @!state :clock-time)]
    [:div
     "This pages demonstrates acquiring and disposing of resources. When the
 user enters the page, a setInterval timer is created. While active, you can see
