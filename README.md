@@ -4,13 +4,26 @@ Single Page Applications (SPAs) in ClojureScript, while often simple, are not al
 
 Make sure you have [yarn](https://yarnpkg.com/en/docs/install) and the [Clojure CLI tools](https://clojure.org/guides/getting_started) installed.
 
-Then run
+At development time, run
 
 ```
 scripts/dev
+
+# or to clean all build artifacts
+
+scripts/dev --reset
 ```
 
-Then open http://localhost:9333/ in your browser
+to start a reloading figwheel server, then open http://localhost:9333/ in your browser.
+
+To build a production build, run
+
+```
+scripts/prod
+```
+
+and open `dist/index.html` in the browser.
+
 
 ## Principles
 

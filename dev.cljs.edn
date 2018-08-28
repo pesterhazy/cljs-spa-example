@@ -1,4 +1,5 @@
 {:main cljs-spa.core
+ :output-to "target/public/compiled/app.js"
  :foreign-libs [{:file "./doublebundle/dist/doublebundle.js",
                  :provides ["react" "react-dom" "create-react-class" "react-dom/server"
                             "react-select" "doublebundle.router5" "doublebundle.router5-browser-plugin"]
