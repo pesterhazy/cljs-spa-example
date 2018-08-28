@@ -68,7 +68,7 @@ Then open http://localhost:9333/ in your browser
 
 ## Additional features
 
-- The Home screen uses the excellent [react-select](https://github.com/JedWatson/react-select) component to demonstrate how to use Reagent components sourced from NPM. See [code](src/cljs_spa/page/home.cljs).
+- The Home page uses the excellent [react-select](https://github.com/JedWatson/react-select) component to demonstrate how to use React components sourced from NPM. See [code](src/cljs_spa/page/home.cljs).
 
 ## Links
 
