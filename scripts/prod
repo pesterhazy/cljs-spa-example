@@ -13,4 +13,4 @@ clojure -A:prod
 
 cp -r resources/public/* dist/
 
-echo All done, see the dist/ directory
+echo All done, you can now open dist/index.html in the browser.
