@@ -1,5 +1,6 @@
 {:main cljs-spa.core
  :optimizations :simple
+ :output-to "dist/compiled/app.js"
  :output-dir "target-prod"
  :foreign-libs [{:file "./doublebundle/dist/doublebundle.js",
                  :provides ["react" "react-dom" "create-react-class" "react-dom/server"
