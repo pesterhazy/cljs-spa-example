@@ -1,6 +1,5 @@
 (ns cljs-spa.core
   (:require [reagent.core :as r]
-            [empty.empty]
             [cljs-spa.util :as util]
             [cljs-spa.router :as router]
             [cljs-spa.routes :as routes]))
