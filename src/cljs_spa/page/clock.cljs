@@ -17,4 +17,9 @@
 (defn page-ui []
   [:div
    [:h3 "Clock"]
-   (some-> @!state :clock-time .getSeconds)])
+   [:div "Seconds since epoch: " (some-> @!state :clock-time int)]
+   [:div
+    "This pages demonstrates acquiring and disposing of resources. When the
+user enters the page, a setInterval timer is created. While active, you can see
+Tick messages in the console log. When the user navigates away (e.g. to #/home)
+the timer is cleared."]])

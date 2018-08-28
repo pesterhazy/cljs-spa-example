@@ -38,6 +38,10 @@ Then open http://localhost:9333/ in your browser
 
   Modern JS engines ship with high-quality abstractions like fetch and ES6 promises. Use these over CLJS alternatives.
 
+- Error management
+
+  Use Promise rejections to signal errors.
+
 ## Technical details
 
 - Figwheel Main
@@ -51,6 +55,20 @@ Then open http://localhost:9333/ in your browser
 - Use router5
 
   The [router5](https://github.com/router5/router5) is a data-centric and framework-agnostic router. It supports registering on-activate and on-deactivate hooks to trigger side-effects. A common use case is to load data when you enter a page, or to clean up resources when you leave a page.
+
+## Code conventions
+
+- The `-ui` suffix for function is used to indicate that the function is a Reagent component and should be used in `[square-brackets]`.
+
+- Every subpage of the app lives in a separate namesapce in the `cljs-spa.page` hierarchy. It exposes a `page-ui` entry point, as well as optional `on-activate` and `on-deactivate` hooks.
+
+- A page is in one of three states: `:loading`, `:loaded` or `:failed`. The page-state-ui wrapper shows a spinner while loading, and a sad smiley when the on-activate promise failed.
+
+## Links
+
+This repository is inspired by Richard Feldman's [elm-spa-example](https://github.com/rtfeldman/elm-spa-example/).
+
+Don't forget to check out [Figwheel Main](https://figwheel.org/).
 
 ## License
 
