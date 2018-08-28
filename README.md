@@ -64,6 +64,8 @@ Then open http://localhost:9333/ in your browser
 
 - A page is in one of three states: `:loading`, `:loaded` or `:failed`. The page-state-ui wrapper shows a spinner while loading, and a sad smiley when the on-activate promise failed.
 
+- Rely on higher-order components like [layout-ui](https://github.com/pesterhazy/cljs-spa-example/blob/master/src/cljs_spa/layout.cljs#L36) and [router-ui](https://github.com/pesterhazy/cljs-spa-example/blob/master/src/cljs_spa/router.cljs#L47) to hide complexity and for better composability.
+
 ## Links
 
 This repository is inspired by Richard Feldman's [elm-spa-example](https://github.com/rtfeldman/elm-spa-example/).
