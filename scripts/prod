@@ -9,4 +9,8 @@ doublebundle/scripts/rebuild-double-bundle
 
 rm -rf dist
 
-exec clojure -A:prod
+clojure -A:prod
+
+cp -r resources/public/* dist/
+
+echo All done, see the dist/ directory
