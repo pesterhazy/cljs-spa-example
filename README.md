@@ -24,6 +24,8 @@ scripts/prod
 
 and open `dist/index.html` in the browser.
 
+The script applies advanced optimizations by default. You can request a non-minified build using `scripts/prod --simple`.
+
 
 ## Principles
 

@@ -1,0 +1,2 @@
+{:optimizations :advanced
+ :infer-externs true}
