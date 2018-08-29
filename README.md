@@ -57,31 +57,31 @@ and open `dist/index.html` in the browser.
 
 ## Technical details
 
-- Figwheel Main
+### Figwheel Main
 
-  Use Figwheel Main as the build tool. It's faster, cleaner and actively developed.
+Use Figwheel Main as the build tool. It's faster, cleaner and actively developed.
 
-- Webpack doublebundle
+### Webpack doublebundle
 
-  To require NPM dependencies (including, but not limited to, React components) with great reliability, use Webpack to create an auxiliary bundle and include it in the main build via `foreign-libs`.
+To require NPM dependencies (including, but not limited to, React components) with great reliability, use Webpack to create an auxiliary bundle and include it in the main build via `foreign-libs`. For more on the rationale, see [this post](https://github.com/pesterhazy/presumably/blob/master/posts/double-bundle.md) and the [official guide](https://clojurescript.org/guides/webpack).
 
-- Use router5
+### Use router5
 
-  The [router5](https://github.com/router5/router5) is a data-centric and framework-agnostic router. It supports registering on-activate and on-deactivate hooks to trigger side-effects. A common use case is to load data when you enter a page, or to clean up resources when you leave a page.
+The [router5](https://github.com/router5/router5) library offers a data-centric and framework-agnostic routing system. In addition to being built on clean abstractions, it supports registering on-activate and on-deactivate hooks to trigger side-effects. A common use case is to load data when you enter a page, or to clean up resources when you leave a page.
 
 ## Code conventions
 
-- The `-ui` suffix for function is used to indicate that the function is a Reagent component and should be used in `[square-brackets]`.
+The `-ui` suffix for function is used to indicate that the function is a Reagent component and should be used in `[square-brackets]`.
 
-- Every subpage of the app lives in a separate namesapce in the `cljs-spa.page` hierarchy. It exposes a `page-ui` entry point, as well as optional `on-activate` and `on-deactivate` hooks.
+Every subpage of the app lives in a separate namesapce in the `cljs-spa.page` hierarchy. It exposes a `page-ui` entry point, as well as optional `on-activate` and `on-deactivate` hooks.
 
-- A page is in one of three states: `:loading`, `:loaded` or `:failed`. The page-state-ui wrapper shows a spinner while loading, and a sad smiley when the on-activate promise failed.
+A page is in one of three states: `:loading`, `:loaded` or `:failed`. The page-state-ui wrapper shows a spinner while loading, and a sad smiley when the on-activate promise failed.
 
-- Rely on higher-order components like [layout-ui](https://github.com/pesterhazy/cljs-spa-example/blob/master/src/cljs_spa/layout.cljs#L36) and [router-ui](https://github.com/pesterhazy/cljs-spa-example/blob/master/src/cljs_spa/router.cljs#L47) to hide complexity and for better composability.
+The app relies on higher-order components like [layout-ui](https://github.com/pesterhazy/cljs-spa-example/blob/master/src/cljs_spa/layout.cljs#L36) and [router-ui](https://github.com/pesterhazy/cljs-spa-example/blob/master/src/cljs_spa/router.cljs#L47) to hide complexity and for better composability.
 
-## Additional features
+## Highlights
 
-- The Home page uses the excellent [react-select](https://github.com/JedWatson/react-select) component to demonstrate how to use React components sourced from NPM. See [code](src/cljs_spa/page/home.cljs).
+Given that we use webpack, any React component can be used easily. As an example, the Home page includes the excellent [react-select](https://github.com/JedWatson/react-select) component. See [code](src/cljs_spa/page/home.cljs).
 
 ## Links
 
