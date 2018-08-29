@@ -1,3 +1,4 @@
 {:optimizations :advanced
+ :infer-externs true
  :output-to "dist/compiled/app.js"
  :output-dir "target-prod"}
