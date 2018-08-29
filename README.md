@@ -57,6 +57,10 @@ and open `dist/index.html` in the browser.
 
 ## Technical details
 
+### Reagent
+
+[Reagent](https://cljdoc.xyz/d/reagent/reagent/0.8.1/doc/documentation-index) is deservedly the most popular React wrapper. With its syntax based on hiccup — the s-expression syntax that in a dream world HTML would have used from the start — and the Ratom reloading model, it is simple enough for beginners and flexible enough for experts.
+
 ### Figwheel Main
 
 Use [Figwheel Main](https://figwheel.org/) as the build tool. It's faster, cleaner and actively developed.
