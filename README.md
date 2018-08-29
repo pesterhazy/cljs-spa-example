@@ -67,7 +67,7 @@ To require NPM dependencies (including, but not limited to, React components) wi
 
 ### Use router5
 
-The [router5](https://github.com/router5/router5) library offers a data-centric and framework-agnostic router object. In addition to being built on clean abstractions, it supports registering on-activate and on-deactivate hooks to trigger side-effects. A common use case is to load data when you enter a page, or to clean up resources when you leave a page.
+The [router5](https://github.com/router5/router5) library offers a data-centric and framework-agnostic routing system. In addition to being built on clean abstractions, it supports registering on-activate and on-deactivate hooks to trigger side-effects. A common use case is to load data when you enter a page, or to clean up resources when you leave a page.
 
 ## Code conventions
 
