@@ -71,9 +71,9 @@ Use [Figwheel Main](https://figwheel.org/) as the build tool. It's faster, clean
 
 To require NPM dependencies (including, but not limited to, React components) with great reliability, use Webpack to create an auxiliary bundle and include it in the main build via `foreign-libs`. For more on the rationale, see [this post](https://github.com/pesterhazy/presumably/blob/master/posts/double-bundle.md) and the [official guide](https://clojurescript.org/guides/webpack).
 
-### Use router5
+### Router5
 
-The [router5](https://github.com/router5/router5) library offers a data-centric and framework-agnostic routing system. In addition to being built on clean abstractions, it supports registering on-activate and on-deactivate hooks to trigger side-effects. A common use case is to load data when you enter a page, or to clean up resources when you leave a page.
+The [Router5](https://github.com/router5/router5) library offers a data-centric and framework-agnostic routing system. In addition to being built on clean abstractions, it supports registering on-activate and on-deactivate hooks to trigger side-effects. A common use case is to load data when you enter a page, or to clean up resources when you leave a page. See [Past and future of client-side routing](https://www.youtube.com/watch?v=hblXdstrAg0) by Router5's author, Thomas Roch
 
 ## Code conventions
 
