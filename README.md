@@ -59,7 +59,7 @@ and open `dist/index.html` in the browser.
 
 ### Figwheel Main
 
-Use Figwheel Main as the build tool. It's faster, cleaner and actively developed.
+Use [Figwheel Main](https://figwheel.org/) as the build tool. It's faster, cleaner and actively developed.
 
 ### Webpack doublebundle
 
