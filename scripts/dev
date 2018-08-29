@@ -7,4 +7,4 @@ fi
 
 doublebundle/scripts/rebuild-double-bundle
 
-exec clojure -A:dev
+exec clojure -m figwheel.main -b dev -r
