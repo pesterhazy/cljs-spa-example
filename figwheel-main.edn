@@ -1,4 +1,4 @@
 {:open-url false
- :watch-dirs ["src"]
+ :watch-dirs ["src" "test"]
  :css-dirs ["resources/public/css"]
  :ring-server-options {:port 9333}}
