@@ -19,7 +19,8 @@
    (pro done f {}))
   ([done f opts]
    (-> (js/Promise.race [(js/Promise. (fn [_ reject]
-                                        (js/setTimeout #(reject (js/Error. "Timeout"))
+                                        (js/setTimeout #(reject (js/Error. (str "Promise failed to resolve in "
+                                                                                (:timeout opts default-timeout) "ms")))
                                                        (:timeout opts default-timeout))))
                          f])
        (.catch (fn [e]
