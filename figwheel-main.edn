@@ -1,5 +1,5 @@
 {:open-url false
  :watch-dirs ["src" "test"]
- :extra-main-files {:tests {:main cljs-spa.core-test}}
+ :extra-main-files {:tests {:main cljs-spa.test-runner}}
  :css-dirs ["resources/public/css"]
  :ring-server-options {:port 9333}}
