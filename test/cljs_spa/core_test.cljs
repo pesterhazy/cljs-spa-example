@@ -3,4 +3,4 @@
 
 (deftest hello-test
   (testing "hello"
-    (is (= :foo :bar2))))
+    (is (= :foo :bar))))
