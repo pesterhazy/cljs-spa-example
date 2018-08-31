@@ -3,8 +3,6 @@
             [clojure.test :refer-macros [deftest testing is async
                                          use-fixtures]]))
 
-(def default-timeout 500)
-
 (defn promise-test [p]
   (reify
     clojure.test/IAsyncTest
@@ -29,11 +27,11 @@
                            (.then (fn []
                                     (throw (js/Error. (str "Promise failed to resolve in " ms "ms"))))))])))
 
-(deftest arithmetic-test
+(deftest arithmetic-test-expected-to-fail
   (testing "hello"
     (is (= 3 (+ 1 1)))))
 
-(deftest async-test
+(deftest async-test-exepcted-to-fail-with-timeout
   (promise-test (-> (slowly+ 500)
                     with-timeout+
-                    (.then (fn [] (= 1 2))))))
+                    (.then (fn [] (is (= 1 2)))))))
