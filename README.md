@@ -88,10 +88,19 @@ The app relies on higher-order components like [layout-ui](https://github.com/pe
 Tests use the excellent Extra Main facility. With `scripts/dev` running, visit http://localhost:9333/figwheel-extra-main/test to see the [cljs-test-display](https://github.com/bhauman/cljs-test-display) test runner.
 
 
-
 ## Highlights
 
 Given that we use webpack, any React component can be used easily. As an example, the Home page includes the excellent [react-select](https://github.com/JedWatson/react-select) component. See [code](src/cljs_spa/page/home.cljs).
+
+## Troubleshooting
+
+When you run into surprising behavior in the browser, the first thing to try is to restart the dev env using
+
+```
+scripts/dev --reset
+```
+
+which clears local compilation caches.
 
 ## Links
 
