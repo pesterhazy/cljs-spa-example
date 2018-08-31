@@ -2,7 +2,7 @@
   (:require [goog.object :as gobj]
             [cljs-spa.state :refer [!state]]
             [reagent.core :as r]
-            [router5 :as router5]
+            [router5]
             ["router5/plugins/browser" :as router5-browser-plugin]))
 
 (defn handle-load-error [e]
@@ -36,7 +36,9 @@
 (defn create-router [routes]
   (let [name->route (->> routes (map (juxt :name identity)) (into {}))]
     (doto (.createRouter router5 (clj->js routes))
-      (.usePlugin ((.-default router5-browser-plugin) #js{:useHash true}))
+      ;; The `.default' form is a bit ugly. It's needed because
+      ;; router5-browser-plugin is an ES6 module exporting .default
+      (.usePlugin (.default router5-browser-plugin #js{:useHash true}))
       (.useMiddleware (fn [router]
                         (fn [to-state from-state]
                           (middleware* name->route to-state from-state)))))))
