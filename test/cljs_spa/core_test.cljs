@@ -1,8 +1,20 @@
 (ns cljs-spa.core-test
-  (:require [clojure.test :refer-macros [deftest testing is async
+  (:require [clojure.core]
+            [clojure.test :refer-macros [deftest testing is async
                                          use-fixtures]]))
 
 (def default-timeout 500)
+
+(defn promise-test [p]
+  (reify
+    clojure.test/IAsyncTest
+    clojure.core/IFn
+    (-invoke [_ done]
+      (-> p
+          (.catch (fn [e]
+                    (js/console.error e)
+                    (is false (str "Promise rejected: " (.-message e)))))
+          (.finally done)))))
 
 (defn slowly+
   ([ms]
@@ -10,25 +22,18 @@
   ([v ms]
    (js/Promise. (fn [resolve reject] (js/setTimeout #(resolve v) ms)))))
 
-(deftest hello-test
-  (testing "hello"
-    (is (= :foo :foo))))
+(defn with-timeout+
+  ([p] (with-timeout+ p 50))
+  ([p ms]
+   (js/Promise.race [p (-> (slowly+ ms)
+                           (.then (fn []
+                                    (throw (js/Error. (str "Promise failed to resolve in " ms "ms"))))))])))
 
-(defn pro
-  ([done f]
-   (pro done f {}))
-  ([done f opts]
-   (-> (js/Promise.race [(js/Promise. (fn [_ reject]
-                                        (js/setTimeout #(reject (js/Error. (str "Promise failed to resolve in "
-                                                                                (:timeout opts default-timeout) "ms")))
-                                                       (:timeout opts default-timeout))))
-                         f])
-       (.catch (fn [e]
-                 (js/console.error e)
-                 (is false (.-message e))))
-       (.finally done))))
+(deftest arithmetic-test
+  (testing "hello"
+    (is (= 3 (+ 1 1)))))
 
 (deftest async-test
-  (async d (pro d
-                (-> (slowly+ 100) ;; raise to 600ms to see failure
-                    (.then (fn [] (is (= 1 1))))))))
+  (promise-test (-> (slowly+ 500)
+                    with-timeout+
+                    (.then (fn [] (= 1 2))))))
