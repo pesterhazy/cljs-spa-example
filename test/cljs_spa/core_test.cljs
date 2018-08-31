@@ -3,8 +3,6 @@
             [clojure.test :refer-macros [deftest testing is async
                                          use-fixtures]]))
 
-(js/console.log "NS cljs-spa.core-test")
-
 (defn promise-test [p]
   (reify
     clojure.test/IAsyncTest
@@ -28,6 +26,8 @@
    (js/Promise.race [p (-> (slowly+ ms)
                            (.then (fn []
                                     (throw (js/Error. (str "Promise failed to resolve in " ms "ms"))))))])))
+
+(js/console.warn "XXX")
 
 (deftest arithmetic-test-expected-to-fail
   (testing "hello"
