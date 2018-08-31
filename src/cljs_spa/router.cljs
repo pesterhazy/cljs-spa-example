@@ -36,10 +36,10 @@
 (defn create-router [routes]
   (let [name->route (->> routes (map (juxt :name identity)) (into {}))]
     (let [router (router5/createRouter (clj->js routes))]
-      (.usePlugin ^js/router5 router ((.-default router5-browser-plugin) #js{:useHash true}))
-      (.useMiddleware ^js/router5 router (fn [router]
-                                           (fn [to-state from-state]
-                                             (middleware* name->route to-state from-state)))))))
+      (.usePlugin ^js router ((.-default router5-browser-plugin) #js{:useHash true}))
+      (.useMiddleware ^js router (fn [router]
+                                   (fn [to-state from-state]
+                                     (middleware* name->route to-state from-state)))))))
 
 (defn stop-router [router]
   (.stop router))
