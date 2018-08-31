@@ -8,7 +8,7 @@
     (cljs-test-display.core/add-var-node m))
 
 (defn test-run []
-  (run-tests (cljs-test-display.core/init! "app")
+  (run-tests (cljs-test-display.core/init! "app-test")
              'cljs-spa.core-test))
 
 (test-run)
