@@ -27,11 +27,13 @@
                            (.then (fn []
                                     (throw (js/Error. (str "Promise failed to resolve in " ms "ms"))))))])))
 
+(js/console.warn "XXX")
+
 (deftest arithmetic-test-expected-to-fail
   (testing "hello"
-    (is (= 3 (+ 1 1)))))
+    (is (= 3 (+ 1 5)))))
 
-(deftest async-test-exepcted-to-fail-with-timeout
-  (promise-test (-> (slowly+ 500)
-                    with-timeout+
-                    (.then (fn [] (is (= 1 2)))))))
+#_(deftest async-test-exepcted-to-fail-with-timeout
+    (promise-test (-> (slowly+ 500)
+                      with-timeout+
+                      (.then (fn [] (is (= 1 2)))))))
