@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail && cd "$(dirname "${BASH_SOURCE[0]}")/.."
+
+if [[ "${1-}" == "--reset" ]]; then
+    rm -rf target doublebundle/dist
+fi
+
+doublebundle/scripts/rebuild-double-bundle
+
+clj -m figwheel.main -co dev.cljs.edn -m cljs-spa.test-runner
