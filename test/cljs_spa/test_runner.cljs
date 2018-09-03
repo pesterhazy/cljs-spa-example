@@ -1,13 +1,8 @@
 (ns cljs-spa.test-runner
   (:require [clojure.test :refer-macros [deftest testing is run-tests]]
+            [figwheel.main.testing :refer-macros [run-tests-async]]
             [cljs-spa.core-test] ;; for side-effects
             [cljs-test-display.core :as td]))
 
-(defn test-run []
-  (run-tests (cljs-test-display.core/init! "app-test")
-             'cljs-spa.core-test))
-
 (defn -main [& args]
-  (println "ARGS:" (pr-str args)))
-
-#_(test-run)
+  (run-tests-async 10000 'cljs-spa.core-test))
