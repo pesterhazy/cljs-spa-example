@@ -7,4 +7,6 @@ fi
 
 doublebundle/scripts/rebuild-double-bundle
 
+mkdir -p target
+
 clj -m figwheel.main -co dev.cljs.edn -m cljs-spa.test-runner
