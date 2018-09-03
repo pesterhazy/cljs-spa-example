@@ -29,6 +29,7 @@
 
 (deftest arithmetic-test-expected-to-fail
   (testing "hello"
+    (js/console.log "math is fun")
     (is (= 3 (+ 1 5)))))
 
 (deftest async-test-exepcted-to-fail-with-timeout
