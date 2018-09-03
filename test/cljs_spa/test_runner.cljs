@@ -10,4 +10,4 @@
 (defn -main [& args]
   (println "ARGS:" (pr-str args)))
 
-(test-run)
+#_(test-run)
