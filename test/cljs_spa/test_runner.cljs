@@ -7,4 +7,7 @@
   (run-tests (cljs-test-display.core/init! "app-test")
              'cljs-spa.core-test))
 
+(defn -main [& args]
+  (println "ARGS:" (pr-str args)))
+
 (test-run)
