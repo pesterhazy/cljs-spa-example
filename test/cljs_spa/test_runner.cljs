@@ -5,4 +5,4 @@
             [cljs-test-display.core :as td]))
 
 (defn -main [& args]
-  (run-tests-async 10000 'cljs-spa.core-test))
+  (run-tests-async 3000))
