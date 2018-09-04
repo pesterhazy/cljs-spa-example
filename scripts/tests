@@ -7,6 +7,4 @@ fi
 
 doublebundle/scripts/rebuild-double-bundle
 
-mkdir -p target
-
 clj -m figwheel.main -co dev.cljs.edn -fwo '{:launch-js "scripts/headless-chrome"}' -m cljs-spa.test-runner
