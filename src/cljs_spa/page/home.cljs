@@ -1,6 +1,8 @@
 (ns cljs-spa.page.home
-  (:require [react-select :refer [default] :rename {default react-select}]
-            [cljs-spa.state :refer [!state]]))
+  (:require
+   ;; See https://github.com/pesterhazy/cljs-spa-example/issues/13
+   [react-select :refer [default] :rename {default react-select}]
+   [cljs-spa.state :refer [!state]]))
 
 (def options
   [{:value "simplicity" :label "simplicity"}
