@@ -1,5 +1,5 @@
 (ns cljs-spa.page.home
-  (:require [react-select :refer (default)]
+  (:require [react-select :refer (default) :rename {default foo}]
             [cljs-spa.state :refer [!state]]))
 
 (def options
@@ -8,7 +8,7 @@
    {:value "lazy sequences" :label "lazy sequences"}])
 
 (defn selector-ui []
-  (js/console.log "xxx" default react-select)
+  (js/console.log "xxx" foo react-select)
   [:div]
   #_[:> default
      {:is-multi true
