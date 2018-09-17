@@ -1,5 +1,5 @@
 (ns cljs-spa.page.home
-  (:require [react-select :refer (default) :rename {default foo}]
+  (:require [react-select :refer [default] :rename {default react-select}]
             [cljs-spa.state :refer [!state]]))
 
 (def options
@@ -8,15 +8,13 @@
    {:value "lazy sequences" :label "lazy sequences"}])
 
 (defn selector-ui []
-  (js/console.log "xxx" foo react-select)
-  [:div]
-  #_[:> default
-     {:is-multi true
-      :options (clj->js options)
-      :on-change (fn [xs] (swap! !state assoc :selection
-                                 (->> (js->clj xs :keywordize-keys true)
-                                      (map :label)
-                                      (into #{}))))}])
+  [:> react-select
+   {:is-multi true
+    :options (clj->js options)
+    :on-change (fn [xs] (swap! !state assoc :selection
+                               (->> (js->clj xs :keywordize-keys true)
+                                    (map :label)
+                                    (into #{}))))}])
 
 (defn result-ui []
   [:div
