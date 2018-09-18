@@ -1,14 +1,4 @@
 {:main cljs-spa.core
  :npm-deps false ;; this is important!
  :language-out :ecmascript5 ;; see https://dev.clojure.org/jira/browse/CLJS-2376
- :output-to "target/public/compiled/app.js"
- :foreign-libs [{:file "./doublebundle/dist/doublebundle.js",
-                 :provides ["react" "react-dom" "create-react-class" "react-dom/server"
-                            "react-select" "doublebundle.router5" "doublebundle.router5-browser-plugin"]
-                 :global-exports {react React
-                                  react-dom ReactDOM
-                                  create-react-class createReactClass
-                                  react-select react-select
-                                  react-dom/server ReactDOMServer
-                                  doublebundle.router5 router5
-                                  doublebundle.router5-browser-plugin router5-browser-plugin}}]}
+ :output-to "target/public/compiled/app.js"}
