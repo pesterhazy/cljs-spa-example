@@ -1,5 +1,7 @@
 Single Page Applications (SPAs) in ClojureScript, while often simple, are not always easy to understand. This example project demonstrates what I think is the best way to build SPAs today.
 
+![Screenshot](screenshot.png)
+
 ## Usage
 
 Make sure you have [yarn](https://yarnpkg.com/en/docs/install) and the [Clojure CLI tools](https://clojure.org/guides/getting_started) installed.

@@ -28,7 +28,7 @@
 
 (defn page-ui []
   [:div {:style {:max-width 400}}
-   [:h3 "Home"]
+   [:h3 "cljs-spa-example"]
    [:div {:style {:margin-top 20,
                   :margin-bottom 20}} "What do you like?"]
    [selector-ui]
