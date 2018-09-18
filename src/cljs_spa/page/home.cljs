@@ -1,6 +1,8 @@
 (ns cljs-spa.page.home
-  (:require [react-select :as react-select]
-            [cljs-spa.state :refer [!state]]))
+  (:require
+   ;; See https://github.com/pesterhazy/cljs-spa-example/issues/13
+   [react-select :refer [default] :rename {default react-select}]
+   [cljs-spa.state :refer [!state]]))
 
 (def options
   [{:value "simplicity" :label "simplicity"}
@@ -8,7 +10,7 @@
    {:value "lazy sequences" :label "lazy sequences"}])
 
 (defn selector-ui []
-  [:> (.-default react-select)
+  [:> react-select
    {:is-multi true
     :options (clj->js options)
     :on-change (fn [xs] (swap! !state assoc :selection
