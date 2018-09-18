@@ -29,6 +29,10 @@ The script applies advanced optimizations by default. You can request a non-mini
 
 ## Principles
 
+- Simplify tooling
+
+  Apply the Unix philosophy: use simple tools based on abstractions that make sense. Everything is held together by duck tape (i.e. Bash scripts)
+
 - Data-driven routing
 
   Navigation is a concern of the M and C of your MVC application, not of the V, so routing should be decoupled from the view layer of your application.
