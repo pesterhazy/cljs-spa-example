@@ -1,6 +1,7 @@
 {:deps {com.bhauman/figwheel-main #:mvn{:version "0.1.9"}
         com.bhauman/rebel-readline-cljs #:mvn{:version "0.1.4"},
         com.bhauman/cljs-test-display {:mvn/version "0.1.1"}
+        ring/ring-core {:mvn/version "1.7.0"} ;; to work around reloading issues, should be safe to remove when newer version of fi-main
         org.clojure/clojure #:mvn{:version "1.9.0"},
         org.clojure/clojurescript #:mvn{:version "1.10.312"},
         reagent {:mvn/version "0.8.1", :exclusions [cljsjs/react-dom cljsjs/react cljsjs/create-react-class cljsjs/react-dom-server]}}
