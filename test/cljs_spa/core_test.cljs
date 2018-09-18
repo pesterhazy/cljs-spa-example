@@ -29,7 +29,7 @@
 
 (deftest arithmetic-test-expected-to-fail
   (testing "hello"
-    (is (= 3 (+ 1 5)))))
+    (is (= 3 (+ 1 7)))))
 
 (deftest async-test-exepcted-to-fail-with-timeout
   (promise-test (-> (slowly+ 500)
