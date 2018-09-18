@@ -85,8 +85,17 @@ A page is in one of three states: `:loading`, `:loaded` or `:failed`. The page-s
 
 The app relies on higher-order components like [layout-ui](https://github.com/pesterhazy/cljs-spa-example/blob/master/src/cljs_spa/layout.cljs#L36) and [router-ui](https://github.com/pesterhazy/cljs-spa-example/blob/master/src/cljs_spa/router.cljs#L47) to hide complexity and for better composability.
 
+## Testing
+
 Tests use the excellent Extra Main facility. With `scripts/dev` running, visit http://localhost:9333/figwheel-extra-main/test to see the [cljs-test-display](https://github.com/bhauman/cljs-test-display) test runner.
 
+The tests in this project are expected to fail - it's easier to see that tests are working when they don't pass.
+
+Additionally, this project is set up for automatic testing using a headless browser:
+
+```
+scripts/tests
+```
 
 ## Highlights
 
