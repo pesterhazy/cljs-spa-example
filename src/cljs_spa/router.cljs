@@ -35,13 +35,11 @@
 
 (defn create-router [routes]
   (let [name->route (->> routes (map (juxt :name identity)) (into {}))]
-    (doto (.createRouter router5 (clj->js routes))
-      ;; The `.default' form is a bit ugly. It's needed because
-      ;; router5-browser-plugin is an ES6 module exporting .default
-      (.usePlugin (.default router5-browser-plugin #js{:useHash true}))
-      (.useMiddleware (fn [router]
-                        (fn [to-state from-state]
-                          (middleware* name->route to-state from-state)))))))
+    (let [router (router5/createRouter (clj->js routes))]
+      (.usePlugin ^js router ((.-default router5-browser-plugin) #js{:useHash true}))
+      (.useMiddleware ^js router (fn [router]
+                                   (fn [to-state from-state]
+                                     (middleware* name->route to-state from-state)))))))
 
 (defn stop-router [router]
   (.stop router))

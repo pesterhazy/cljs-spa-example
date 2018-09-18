@@ -7,4 +7,4 @@ fi
 
 doublebundle/scripts/rebuild-double-bundle
 
-exec clojure -m figwheel.main -b dev -r
+clj -m figwheel.main -co dev.cljs.edn -fwo '{:launch-js "scripts/headless-chrome"}' -m cljs-spa.test-runner

@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -euo pipefail && cd "$(dirname "${BASH_SOURCE[0]}")/.."
+
+build="dev:prod:min"
+
+while test $# -gt 0
+do
+    if [[ "$1" == "--reset" ]]; then
+        rm -rf target-prod doublebundle/dist
+    elif [[ "$1" == "--simple" ]]; then
+        build="dev:prod"
+    else
+        printf "Unknown argument: %s\n" "$1"
+        exit 1
+    fi
+    shift
+done
+
+printf "Using build: %s\n" "$build"
+
+doublebundle/scripts/rebuild-double-bundle
+
+rm -rf dist
+
+clojure -m figwheel.main -bo "$build"
+
+cp -r resources/public/* dist/
+
+echo All done, you can now open dist/index.html in the browser.

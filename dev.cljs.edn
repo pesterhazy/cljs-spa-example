@@ -1,1 +1,4 @@
-{:main cljs-spa.core}
+{:main cljs-spa.core
+ :npm-deps false ;; this is important!
+ :language-out :ecmascript5 ;; see https://dev.clojure.org/jira/browse/CLJS-2376
+ :output-to "target/public/compiled/app.js"}
