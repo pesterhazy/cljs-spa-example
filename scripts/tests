@@ -7,4 +7,4 @@ fi
 
 doublebundle/scripts/rebuild-double-bundle
 
-clj -m figwheel.main -b common:test -m cljs-spa.test-runner
+clj -m figwheel.main -co common.cljs.edn:test.cljs.edn -m cljs-spa.test-runner
