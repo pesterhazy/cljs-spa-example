@@ -5,4 +5,4 @@
         org.clojure/clojure #:mvn{:version "1.9.0"},
         org.clojure/clojurescript #:mvn{:version "1.10.312"},
         reagent {:mvn/version "0.8.1", :exclusions [cljsjs/react-dom cljsjs/react cljsjs/create-react-class cljsjs/react-dom-server]}}
- :paths ["src" "resources" "test" "target"]}
+ :paths ["src" "resources" "tests" "target"]}

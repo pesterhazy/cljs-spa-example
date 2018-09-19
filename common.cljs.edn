@@ -1,0 +1,5 @@
+^{:npm {:bundles {"doublebundle/dist/doublebundle.js" "doublebundle/library.js"}}}
+{:main cljs-spa.core
+ :npm-deps false ;; this is important!
+ :language-out :ecmascript5 ;; see https://dev.clojure.org/jira/browse/CLJS-2376
+ }

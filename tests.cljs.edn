@@ -1,0 +1,2 @@
+^{:launch-js "scripts/headless-chrome"}
+{:main cljs-spa.test-runner}

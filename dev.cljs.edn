@@ -1,4 +1,6 @@
-{:main cljs-spa.core
- :npm-deps false ;; this is important!
- :language-out :ecmascript5 ;; see https://dev.clojure.org/jira/browse/CLJS-2376
- :output-to "target/public/compiled/app.js"}
+^{:watch-dirs ["src" "tests"]
+  :extra-main-files {:tests {:main cljs-spa.test-runner}}
+  :auto-testing true
+  :css-dirs ["resources/public/css"]
+  :ring-server-options {:port 9333}}
+{:output-to "target/public/compiled/app.js"}
