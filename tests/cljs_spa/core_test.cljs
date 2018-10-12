@@ -31,7 +31,7 @@
   (testing "hello"
     (is (= 3 (+ 1 7)))))
 
-(deftest async-test-exepcted-to-fail-with-timeout
+(deftest async-test-expected-to-fail-with-timeout
   (promise-test (-> (slowly+ 500)
                     with-timeout+
                     (.then (fn [] (is (= 1 2)))))))
