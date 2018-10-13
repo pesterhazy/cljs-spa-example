@@ -93,7 +93,7 @@ The app relies on higher-order components like [layout-ui](https://github.com/pe
 
 ## Testing
 
-Tests use the excellent Extra Main facility. With `scripts/dev` running, visit http://localhost:9333/figwheel-extra-main/test to see the [cljs-test-display](https://github.com/bhauman/cljs-test-display) test runner.
+Tests use the excellent Extra Main facility. With `scripts/dev` running, visit http://localhost:9333/figwheel-extra-main/tests to see the [cljs-test-display](https://github.com/bhauman/cljs-test-display) test runner.
 
 The tests in this project are included for demonstration purposes and are *expected to fail*.
 
