@@ -5,13 +5,12 @@
             [cljs-spa.core-test] ;; for side-effects
             [cljs-test-display.core :as td]))
 
-(defn extra-main []
+(defn extra-main
+  []
   (js/console.warn "extra-main")
   (run-tests (td/init! "app-tests") 'cljs-spa.core-test))
 
-(defn -main [& args]
-  (js/console.warn "-main")
-  (run-tests-async 3000))
+(defn -main [& args] (js/console.warn "-main") (run-tests-async 3000))
 
 ;; Only run this at NS init time when the user
 ;; is visiting the extra main page
