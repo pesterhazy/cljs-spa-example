@@ -16,10 +16,13 @@
 
 (defn not-found-ui [] [:div "Not Found"])
 
+;!zprint {:format :skip}
 (defn nav-ui
   []
-  [:nav [:a {:href "#/"} "Home"] [:span " "] [:a {:href "#/users"} "Users"]
-   [:span " "] [:a {:href "#/users/1"} "User #1"] [:span " "]
+  [:nav
+   [:a {:href "#/"} "Home"] [:span " "]
+   [:a {:href "#/users"} "Users"] [:span " "]
+   [:a {:href "#/users/1"} "User #1"] [:span " "]
    [:a {:href "#/users/999"} "Invalid user"] [:span " "]
    [:a {:href "#/clock"} "Clock"]])
 
