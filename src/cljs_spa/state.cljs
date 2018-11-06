@@ -3,5 +3,4 @@
 
 (defonce !state (r/atom nil))
 
-(defn loaded! []
-  (swap! !state assoc :page-state :loaded))
+(defn loaded! [] (swap! !state assoc :page-state :loaded))

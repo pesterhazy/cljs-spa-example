@@ -2,26 +2,23 @@
   (:require [reagent.core :as r]
             [cljs-spa.state :refer [!state]]))
 
-(defn loading-ui []
-  [:div.loading])
+(defn loading-ui [] [:div.loading])
 
-(defn page-state-ui []
+(defn page-state-ui
+  []
   (case (:page-state @!state)
-    :loading
-    [loading-ui]
-    :loaded
-    (let [children (r/children (r/current-component))]
-      (assert (= 1 (count children)))
-      (first children))
-    :failed
-    [:div ":-("]
-    nil
-    nil))
+    :loading [loading-ui]
+    :loaded (let [children (r/children (r/current-component))]
+              (assert (= 1 (count children)))
+              (first children))
+    :failed [:div ":-("]
+    nil nil))
 
-(defn not-found-ui []
-  [:div "Not Found"])
+(defn not-found-ui [] [:div "Not Found"])
 
-(defn nav-ui []
+;!zprint {:format :skip}
+(defn nav-ui
+  []
   [:nav
    [:a {:href "#/"} "Home"]
    [:span " "]
@@ -33,9 +30,9 @@
    [:span " "]
    [:a {:href "#/clock"} "Clock"]])
 
-(defn layout-ui []
-  [:div
-   [nav-ui]
+(defn layout-ui
+  []
+  [:div [nav-ui]
    [:main
     [:article
      (let [children (r/children (r/current-component))]
