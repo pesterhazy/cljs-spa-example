@@ -2,13 +2,11 @@
   (:require [cljs-spa.util :as util]
             [cljs-spa.state :refer [!state]]))
 
-(defn tick
-  []
+(defn tick []
   (js/console.log "Tick")
   (swap! !state assoc :clock-time (int (/ (.valueOf (js/Date.)) 1000))))
 
-(defn activate
-  []
+(defn activate []
   (tick)
   (swap! !state update
     :clock
@@ -16,8 +14,7 @@
 
 (defn deactivate [] (swap! !state update :clock util/clear-interval))
 
-(defn page-ui
-  []
+(defn page-ui []
   [:div [:h3 "Clock"]
    [:div "Seconds since epoch: "
     (-> @!state

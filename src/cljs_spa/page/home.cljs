@@ -8,8 +8,7 @@
    {:value "immutable data", :label "immutable data"}
    {:value "lazy sequences", :label "lazy sequences"}])
 
-(defn selector-ui
-  []
+(defn selector-ui []
   [:> react-select
    {:is-multi true,
     :options (clj->js options),
@@ -20,14 +19,12 @@
                         (map :label)
                         (into #{}))))}])
 
-(defn result-ui
-  []
+(defn result-ui []
   [:div [:h3 "So you like"]
    (let [selection (:selection @!state)]
      (if (seq selection) [:div (pr-str selection)] "Nothing yet"))])
 
-(defn page-ui
-  []
+(defn page-ui []
   [:div {:style {:max-width 400}} [:h3 "cljs-spa-example"]
    [:div {:style {:margin-top 20, :margin-bottom 20}} "What do you like?"]
    [selector-ui] [result-ui]])

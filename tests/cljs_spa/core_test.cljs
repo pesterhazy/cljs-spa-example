@@ -3,8 +3,7 @@
             [clojure.test :refer-macros
              [deftest testing is async use-fixtures]]))
 
-(defn promise-test
-  [p]
+(defn promise-test [p]
   (reify
     clojure.test/IAsyncTest
     clojure.core/IFn

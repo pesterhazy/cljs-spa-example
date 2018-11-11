@@ -3,8 +3,7 @@
             [cljs-spa.state :refer [!state loaded!]]
             [goog.object :as gobj]))
 
-(defn activate
-  [{{:keys [id]} :params}]
+(defn activate [{{:keys [id]} :params}]
   (-> (util/safe-fetch (str "https://reqres.in/api/users/" id "?page=1"))
       (.then (fn [r] (.json r)))
       (.then (fn [js-data]
@@ -13,8 +12,7 @@
                  (js->clj js-data :keywordize-keys true))))
       (.then loaded!)))
 
-(defn page-ui
-  [{:keys [id]}]
+(defn page-ui [{:keys [id]}]
   [:div [:h3 "User No. " id]
    (when-let [user-data (:user-data @!state)]
      [:div

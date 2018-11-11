@@ -5,8 +5,7 @@
             [cljs-spa.core-test] ;; for side-effects
             [cljs-test-display.core :as td]))
 
-(defn extra-main
-  []
+(defn extra-main []
   (js/console.warn "extra-main")
   (run-tests (td/init! "app-tests") 'cljs-spa.core-test))
 

@@ -5,22 +5,19 @@
             [router5]
             ["router5/plugins/browser" :as router5-browser-plugin]))
 
-(defn handle-load-error
-  [e]
+(defn handle-load-error [e]
   (when (-> e
             ex-data
             :load-error)
     (swap! !state assoc :page-state :failed))
   (throw e))
 
-(defn handle-rejection
-  [e]
+(defn handle-rejection [e]
   (js/console.error e)
   (-> (js/Noty. #js {:text (.-message e), :type "error", :timeout 1500})
       .show))
 
-(defn middleware*
-  [name->route to-state from-state]
+(defn middleware* [name->route to-state from-state]
   (let [on-activate (some-> to-state
                             (gobj/get "name")
                             name->route
@@ -48,8 +45,7 @@
                    (swap! !state assoc :page-state :loaded))
                  true)))))
 
-(defn create-router
-  [routes]
+(defn create-router [routes]
   (let [name->route (->> routes
                          (map (juxt :name identity))
                          (into {}))]
@@ -63,8 +59,7 @@
 
 (defn stop-router [router] (.stop router))
 
-(defn router-ui
-  [initial-props]
+(defn router-ui [initial-props]
   (let [!unsubscribe-fn (atom nil)
         unsubscribe (fn []
                       (when-let [fun @!unsubscribe-fn]

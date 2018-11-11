@@ -26,7 +26,6 @@
        (map (juxt :name :render-fn))
        (into {})))
 
-(defn switch-ui
-  [{route-name :name, params :params}]
+(defn switch-ui [{route-name :name, params :params}]
   (let [render-fn (name->render-fn route-name (fn [] [layout/not-found-ui]))]
     [layout/layout-ui (render-fn params)]))

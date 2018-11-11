@@ -4,8 +4,7 @@
 
 (defn loading-ui [] [:div.loading])
 
-(defn page-state-ui
-  []
+(defn page-state-ui []
   (case (:page-state @!state)
     :loading [loading-ui]
     :loaded (let [children (r/children (r/current-component))]
@@ -16,7 +15,7 @@
 
 (defn not-found-ui [] [:div "Not Found"])
 
-;!zprint {:format :skip}
+;;!zprint {:format :skip}
 (defn nav-ui
   []
   [:nav
@@ -30,8 +29,7 @@
    [:span " "]
    [:a {:href "#/clock"} "Clock"]])
 
-(defn layout-ui
-  []
+(defn layout-ui []
   [:div [nav-ui]
    [:main
     [:article
