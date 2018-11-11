@@ -15,9 +15,8 @@
 
 (defn not-found-ui [] [:div "Not Found"])
 
-;;!zprint {:format :skip}
-(defn nav-ui
-  []
+;;!zprint {:format :next :style :keyword-respect-nl}
+(defn nav-ui []
   [:nav
    [:a {:href "#/"} "Home"]
    [:span " "]
