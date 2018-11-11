@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail && cd "$(dirname "${BASH_SOURCE[0]}")/.."
+
+bin=zprintm-0.4.12
+opts='{:fn-map {"defn" :fn}}'
+
+git ls-files -z '*.cljs' '*.clj' | xargs -0 -I '{}' bash -c 'set -eu;f="$1"&&shift;c="$1"&&shift;t=$(mktemp)&&function x(){ rm -f "$t";}&&trap "x" EXIT;"$c" "$@"<"$f">"$t";cp "$t" "$f"' -- '{}' "$bin" "$opts"
